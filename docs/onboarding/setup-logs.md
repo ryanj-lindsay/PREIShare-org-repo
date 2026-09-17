@@ -61,11 +61,7 @@ upstream points at the team repo: PASS
 On branch main
 Your branch is up to date with 'origin/main'.
 
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-	docs/onboarding/setup-logs.md
-
-nothing added to commit but untracked files present (use "git add" to track)
+nothing to commit, working tree clean
 ```
 
 ### Default branch
@@ -76,7 +72,7 @@ main
 ```
 
 Default branch name: `main`
-Working tree clean after clone: PASS (only untracked file present is this setup log itself, created after cloning)
+Working tree clean after clone: PASS (this setup log itself has since been committed and pushed to `origin/main`)
 
 ## 6. Auth notes (no secrets)
 
