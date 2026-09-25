@@ -29,6 +29,7 @@ All AI coding tools follow **`.cursor/rules/preishare.mdc`** — stack, newcomer
 | Path | What |
 | --- | --- |
 | `src/routes/` | File-based page routes |
+| `src/routes/__root.tsx` | Root route / document shell (`<html>`, header, footer) — main UI entry |
 | `src/components/` | UI components |
 | `src/styles.css` | Tailwind entry and CSS variables |
 | `src/router.tsx` | Router factory |
@@ -52,6 +53,6 @@ All AI coding tools follow **`.cursor/rules/preishare.mdc`** — stack, newcomer
 2. **Small diff** — change only what the task needs; one concern per PR; no unrelated edits.
 3. **Verify** — re-read the full diff, confirm it does what was asked, and report what was and wasn't checked.
 4. **Ask first** — before deleting files, adding or upgrading dependencies, editing build config, changing database schemas, or making architectural decisions (e.g. creating `src/lib/supabase.ts`).
-5. **Never** commit, paste, or log secrets (`.env`, credentials, tokens, real customer data), and never push directly to the team repo or `main`.
+5. **Never** commit, paste, or log secrets (`.env`, `*.local`, credentials, tokens, real customer data), and never push directly to the team repo or `main`.
 
 Full do-not list: `.cursor/rules/preishare.mdc` §5.

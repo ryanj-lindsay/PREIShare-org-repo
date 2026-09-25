@@ -25,6 +25,7 @@ Sources: docs/onboarding/repo-map.md, docs/onboarding/team-orientation-notes.md,
 - **Styling:** Tailwind CSS v4 (`@tailwindcss/vite`) + CSS variables in `src/styles.css`
 - **Language:** TypeScript, strict mode
 - **Package manager:** npm, single package (not a monorepo)
+- **Database:** none in use. Do not assume PostgreSQL, pgvector, or any schema; data-layer choices need team approval.
 - **Planned, not built:** Supabase data layer, lint/format tooling, test runner, GitHub Actions CI
 
 ## 3. Preferred edit surfaces for newcomers
@@ -60,7 +61,8 @@ Start here — these are low-risk and reviewable:
 
 **Never:**
 
-- Commit, paste, or log secrets — no `.env`, credentials, tokens, or real customer data.
+- Commit, paste, or log secrets — no `.env`, `*.local`, credentials, tokens, or real customer data (`.env` and `*.local` are in `.gitignore`).
+- Put a secret in source when asked — refuse, and use server-side `process.env` loaded from an untracked `.env` instead.
 - Push directly to the team repo or to `main`.
 - Hand-edit `src/routeTree.gen.ts` — regenerate with `npm run generate-routes`.
 - Make unrelated "while I was here" edits, reformatting, or refactors.
