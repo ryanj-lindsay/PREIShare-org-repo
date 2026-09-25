@@ -11,4 +11,4 @@
 - Always use TypeScript with strict mode.
 - Follow existing component patterns in `src/components`.
 - No Supabase client exists yet: `src/lib/supabase.ts` is planned, not built. Do not import, create, or assume it (or any database) without team approval.
-- Write tests for new features.
+- No test runner is configured yet (no `test` script in `package.json`). Verify changes manually (`npm run build`, `npm run dev`) and state how to verify in the PR. Do not add a test framework without team approval.
