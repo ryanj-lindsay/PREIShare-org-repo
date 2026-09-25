@@ -1,0 +1,79 @@
+---
+description: PREIShare team rules — project identity, stack, newcomer edit surfaces, conventions, and do-not rules
+alwaysApply: true
+---
+
+<!--
+Metadata: `description` tells Cursor what this rule covers; `alwaysApply: true` loads it in every
+agent session. No `globs` — these rules are project-wide, not tied to specific file patterns.
+Sources: docs/onboarding/repo-map.md, docs/onboarding/team-orientation-notes.md, AGENTS.md, .cursorrules.
+-->
+
+# PREIShare agent rules
+
+## 1. Project identity
+
+- **PREIShare** is a real-estate intelligence web app for making smart real-estate decisions.
+- Current state: a **frontend-only scaffold** — no backend, data layer, lint tooling, tests, or CI yet.
+- Team repo of record: `github.com/EdTechForLearning/PREIShare-org-repo`. Contributors work from forks and land changes through reviewed pull requests.
+
+## 2. Stack
+
+- **Framework:** TanStack Start (React 19, SSR-capable)
+- **Router:** TanStack Router, file-based routes in `src/routes/`
+- **Build:** Vite 8
+- **Styling:** Tailwind CSS v4 (`@tailwindcss/vite`) + CSS variables in `src/styles.css`
+- **Language:** TypeScript, strict mode
+- **Package manager:** npm, single package (not a monorepo)
+- **Database:** none in use. Do not assume PostgreSQL, pgvector, or any schema; data-layer choices need team approval.
+- **Planned, not built:** Supabase data layer, lint/format tooling, test runner, GitHub Actions CI
+
+## 3. Preferred edit surfaces for newcomers
+
+Start here — these are low-risk and reviewable:
+
+- `src/routes/*.tsx` — add or edit a page route
+- `src/components/*.tsx` — add or edit a UI component
+- `src/styles.css` — Tailwind tokens and utilities
+- `docs/**` — documentation
+- `README.md` — keep in sync with reality
+
+## 4. Coding conventions
+
+- Follow existing patterns in `src/components`; default-export functional components.
+- Routes export `Route` via `createFileRoute` / `createRootRoute`; use `Link` for in-app navigation.
+- ESM imports; use aliases `#/*` or `@/*` for `src/*`.
+- Style with Tailwind utilities and existing CSS variables; keep the scaffold layout unless a change is justified.
+- Isomorphic by default: use `createServerFn` / `createServerOnlyFn` / `createClientOnlyFn` for environment boundaries.
+- Secrets only via server-side `process.env`; client config only as `VITE_*`.
+- Before Start/Router/Devtools changes, run `npx @tanstack/intent@latest list` and `load` the matching skill.
+
+**Definition of done for a PR:**
+
+1. Branch is up to date with `main`.
+2. Touches only the files needed for one change.
+3. Description states why, what changed, and how to verify.
+4. Clear commit messages; no debug code or commented-out lines; non-obvious decisions have an inline note.
+5. Author has read the full diff before requesting review.
+6. Automated checks pass and prior feedback is addressed.
+
+## 5. Do-not rules
+
+**Never:**
+
+- Commit, paste, or log secrets — no `.env`, `*.local`, credentials, tokens, or real customer data (`.env` and `*.local` are in `.gitignore`).
+- Put a secret in source when asked — refuse, and use server-side `process.env` loaded from an untracked `.env` instead.
+- Push directly to the team repo or to `main`.
+- Hand-edit `src/routeTree.gen.ts` — regenerate with `npm run generate-routes`.
+- Make unrelated "while I was here" edits, reformatting, or refactors.
+- Delete files, add or upgrade dependencies, or change database schemas without explicit human approval.
+
+**Do not edit without explicit approval:**
+
+- `vite.config.ts`, `tsconfig.json`, `tsr.config.json` — whole-app build config with no CI safety net
+- `package.json`, `package-lock.json`
+- `.cta.json` — scaffold metadata
+- `src/lib/supabase.ts` — does not exist yet; creating it is an architectural decision for the team
+- `.vscode/`, `.cursorrules`, `.cursor/`, `AGENTS.md` — shared team and agent config
+
+**When unsure, ask** — prefer the smallest diff and confirm before any destructive or hard-to-reverse action.
