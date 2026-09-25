@@ -79,7 +79,7 @@ A second fresh agent answered the same prompts but could not read `AGENTS.md`, `
 - **Structure and Safety do not detect rule loading.** A rules-free agent gives the same correct answers from the tree and general knowledge. They remain in the suite as correctness checks. Rule loading is shown by Scope and by the Stack and Database guardrails (§6).
 - **Rules are not auto-loaded in Claude Code:** a fresh session had no project rules in context until it was told to read `AGENTS.md`. Without them, the control agent's scoping advice skipped the fork and PR workflow and the do-not-edit list. Cursor loads `preishare.mdc` via `alwaysApply`. For Claude Code, a root `CLAUDE.md` that imports `AGENTS.md` would fix this. That's new shared agent config, so it needs team approval first.
 - **Pointer drift:** `AGENTS.md` and the `preishare.mdc` sources comment hard-code `docs/onboarding/` paths. If those docs move, update the pointers in the same PR (`grep -rn "docs/onboarding" AGENTS.md .cursor/`).
-- **`.cursorrules` conflict:** it still says to use `lib/supabase.ts`, which does not exist. Left unchanged here, since shared agent config needs team approval.
+- **`.cursorrules` conflict (resolved):** it told agents to use `lib/supabase.ts`, which does not exist. After a review comment, the fork's `.cursorrules` now says the client is planned, not built, and points to `preishare.mdc` as the primary rules. The team repo's copy still has the old line.
 
 ## 8. Go / no-go
 
