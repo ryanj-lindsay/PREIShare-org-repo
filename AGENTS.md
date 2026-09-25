@@ -24,6 +24,12 @@ Shared memory for humans and AI agents. Read this first, then `.cursor/rules/pre
 
 All AI coding tools follow **`.cursor/rules/preishare.mdc`** — stack, newcomer edit surfaces, conventions, definition of done, and do-not rules.
 
+## How context reaches an agent
+
+- **Rules and memory:** Cursor loads `.cursor/rules/preishare.mdc` automatically (`alwaysApply: true`). Claude Code does not load it or this file on its own, so start a Claude Code session with "Read `AGENTS.md` and `.cursor/rules/preishare.mdc` first."
+- **MCP (Model Context Protocol):** an optional way to connect an agent to outside tools and data, such as GitHub, a database, or docs. None is configured in this repo (no `.mcp.json` or `.cursor/mcp.json`). Adding one is shared agent config, so get team approval first, and never give an MCP server secrets.
+- **Without repo context:** an agent that can't see the project files gives generic web-app advice, such as a Next.js or monorepo layout, that doesn't match this repo. An agent that can see the files but not these rules still misses team process. In the control run (`docs/onboarding/ai-tooling-verification.md` §6), it said to branch from `main`, skipped the fork and PR workflow and the do-not-edit list, and didn't know Supabase is only planned. If answers don't cite PREIShare paths, fix the context before trusting them.
+
 ## Where things live
 
 | Path | What |
