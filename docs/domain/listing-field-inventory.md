@@ -25,13 +25,14 @@ Field names use `camelCase`. A dotted name such as `address.city` means the `cit
 
 All example values are made up.
 
-## 1. Identity
+## 1. Core fields
 
 | Field | Meaning | Shape | Required | Example |
 | --- | --- | --- | --- | --- |
 | `id` | Unique ID for this listing; never changes or gets reused | text | Required | `"lst_8f3k2m"` |
 | `title` | Short headline investors see first | text (not empty) | Required | `"Maple Street Duplex"` |
 | `description` | Longer plain-language summary of the property | text | Optional | `"Two-unit duplex near the university, both units leased."` |
+| `askingPrice` | Price the seller is asking, in whole US dollars (no `$`, commas, or cents); greater than 0 | number (whole) | Required | `425000` |
 | `createdAt` | When the listing was first created | text (ISO 8601 date-time) | Required | `"2026-10-01T09:00:00Z"` |
 | `updatedAt` | When the listing was last changed; not before `createdAt` | text (ISO 8601 date-time) | Required | `"2026-10-18T16:45:00Z"` |
 
@@ -94,8 +95,7 @@ Allowed values — exactly these, lowercase:
 
 | Field | Meaning | Shape | Required | Example |
 | --- | --- | --- | --- | --- |
-| `financials` | Key money facts investors compare | nested object | Required | — |
-| `financials.askingPrice` | Price the seller is asking, in dollars; greater than 0 | number (whole) | Required | `425000` |
+| `financials` | Money facts that support the asking price | nested object | Required | — |
 | `financials.currency` | Currency for every money field; only USD for now | fixed choice: `USD` | Required | `"USD"` |
 | `financials.minimumInvestment` | Smallest amount one investor can put in; greater than 0 and not more than `askingPrice` | number (whole) | Optional | `25000` |
 | `financials.estimatedMonthlyRent` | Expected total rent per month across all units; 0 or more | number (whole) | Optional | `3400` |
@@ -155,6 +155,7 @@ A valid `active` listing using every group above (all data made up):
   "id": "lst_8f3k2m",
   "title": "Maple Street Duplex",
   "description": "Two-unit duplex near the university, both units leased.",
+  "askingPrice": 425000,
   "createdAt": "2026-10-01T09:00:00Z",
   "updatedAt": "2026-10-18T16:45:00Z",
   "status": "active",
@@ -167,7 +168,6 @@ A valid `active` listing using every group above (all data made up):
     "country": "US"
   },
   "financials": {
-    "askingPrice": 425000,
     "currency": "USD",
     "minimumInvestment": 25000,
     "estimatedMonthlyRent": 3400,
@@ -204,7 +204,7 @@ A valid `active` listing using every group above (all data made up):
 | --- | --- |
 | `"status": "Active"` | Status values are lowercase fixed choices; `Active` is not in the list |
 | `"askingPrice": "$425,000"` | Price is a whole number, not text |
-| Missing `financials.askingPrice` | Asking price is required |
+| Missing `askingPrice` | Asking price is required |
 | `"address": { "street": "1420 Maple Street" }` | City, state, postal code, and country are required |
 | `"postalCode": 2134` | Postal code is text, so leading zeros are kept (`"02134"`) |
 | Two contacts with `isPrimary: true` | Exactly one contact must be primary |

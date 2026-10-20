@@ -70,11 +70,11 @@ A listing is one object made of smaller groups. A **nested object** is a group o
 
 | Group | Shape | What it holds |
 | --- | --- | --- |
-| **Identity** | Top-level fields | ID, title, description, created and updated dates |
+| **Core fields** | Top-level single values | ID, title, description, asking price, created and updated dates |
 | **Status** | Fixed choice | Where the listing is in its lifecycle (§4) |
 | **Property type** | Fixed choice | What kind of property it is (single-family, condo, and so on) |
 | **Address** | Nested object | Street, unit, city, state, ZIP code, country |
-| **Financial summary** | Nested object | Asking price, currency, minimum investment, rent, taxes, HOA fees |
+| **Financial summary** | Nested object | Currency, minimum investment, rent, taxes, HOA fees |
 | **Investor contacts** | List of nested objects | Who investors contact, their role, email, phone, and which one is primary |
 | **Ownership** | Nested object with a list of owners | Ownership structure and each owner's share |
 
@@ -84,11 +84,11 @@ Field-level detail (names, shapes, required vs. optional, examples) is in `docs/
 
 A listing is **valid** (safe to show investors) only when every item below is true. A `draft` may break these rules while it is being written; every other status must pass all of them.
 
-1. **Identity is set.** `id` and `title` are present and not empty; `createdAt` and `updatedAt` are valid dates, and `updatedAt` is not before `createdAt`.
+1. **Identity is set.** `id` and `title` are present and not empty; `createdAt` and `updatedAt` are valid dates, and `updatedAt` is not before `createdAt`. `description` is optional: a listing may be shown to investors without one, because the title, price, and address carry the facts they need.
 2. **Status is known.** `status` is exactly one of the six values in §4 — no other spelling or casing.
 3. **Property type is known.** `propertyType` is exactly one of the values in the field inventory.
 4. **Address is complete.** `street`, `city`, `state`, `postalCode`, and `country` are all present and not empty; `state` is a two-letter code and `postalCode` is a 5-digit ZIP or ZIP+4.
-5. **Price is present and sensible.** `financials.askingPrice` is a whole number of dollars greater than 0, and `financials.currency` is `USD`. Optional money fields, when present, are 0 or more.
+5. **Price is present and sensible.** `askingPrice` is a whole number of US dollars greater than 0, and `financials.currency` is `USD`. Optional money fields, when present, are 0 or more.
 6. **Minimum investment fits the price.** If `financials.minimumInvestment` is present, it is greater than 0 and not more than `askingPrice`.
 7. **Investors have someone to call.** `contacts` has at least one contact; exactly one contact has `isPrimary: true`; every contact has a name, a known role, and an email address.
 8. **Ownership adds up.** `ownership.owners` has at least one owner, every `sharePercent` is greater than 0, and the shares add up to exactly 100.
