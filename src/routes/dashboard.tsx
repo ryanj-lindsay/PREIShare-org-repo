@@ -1,16 +1,17 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
+import AppShell from '../components/layout/AppShell'
 
-// Parent layout route for every investor page under /dashboard.
-// It renders the matching child page in <Outlet />; the shared AppShell
-// (sidebar, header, main area) wraps this outlet in a later step.
+// Parent layout route for every investor page under /dashboard: the AppShell
+// (sidebar, header, main area) is written once here and wraps each child page,
+// which renders in <Outlet />.
 export const Route = createFileRoute('/dashboard')({
   component: DashboardLayout,
 })
 
 function DashboardLayout() {
   return (
-    <div className="page-wrap px-4 pb-8 pt-10">
+    <AppShell>
       <Outlet />
-    </div>
+    </AppShell>
   )
 }
