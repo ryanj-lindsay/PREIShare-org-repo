@@ -18,3 +18,9 @@ export type ListingStatus =
   | 'closed'
   /** Taken off the market before closing; kept for history. */
   | 'withdrawn'
+
+/** The one status whose listing records a closing date (closedAt). */
+export type ClosedListingStatus = 'closed'
+
+/** Every status except "closed". A listing in one of these has no closing date. */
+export type OpenListingStatus = Exclude<ListingStatus, ClosedListingStatus>
