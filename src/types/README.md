@@ -24,7 +24,7 @@ If a type and the docs disagree, fix the docs first, then the type.
 - Types only — no runtime logic, API calls, or real customer data in this folder. Example data in fixtures is made up.
 - Data that arrives at run time (API responses, form input) must be checked before it is treated as one of these types; a type alone does not check incoming data.
 
-## Check your work
+## Typecheck
 
 From the project root:
 
@@ -32,4 +32,11 @@ From the project root:
 npm run typecheck
 ```
 
-It should finish with no errors.
+**Success** looks like the command finishing with no `error TS…` lines (exit code 0). Run it before you ask for a review; if it fails, fix the type or fixture it names before doing anything else.
+
+It checks every TypeScript file in the project, including the valid samples in `src/fixtures/sample-investor-listings.ts`, except one file:
+
+- `src/fixtures/invalid-listings.errors.ts` is **supposed to fail**. Each listing in it breaks one rule on purpose, to prove the types catch that mistake. It is left out of the clean check by `tsconfig.typecheck.json`.
+- To see those intended errors, run `npm run typecheck:errors`. It should report exactly the 16 errors listed in `docs/type-safety/expected-type-errors.md`, all in that one file. Fewer means a type got looser; errors in any other file are real bugs.
+
+Before handing off a change to these types, walk through `docs/type-safety/verification-checklist.md`.

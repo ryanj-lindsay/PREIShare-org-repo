@@ -1,0 +1,6 @@
+{
+  // Clean typecheck gate used by `npm run typecheck`: the whole project except the
+  // intentional error fixtures, which are checked separately by `npm run typecheck:errors`.
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "src/fixtures/invalid-listings.errors.ts"]
+}
