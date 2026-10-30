@@ -35,8 +35,11 @@ export interface InvestorListingBase {
    */
   financials: FinancialSummary
 
-  /** People investors can reach about this listing; at least one. */
-  contacts: InvestorContact[]
+  /**
+   * People investors can reach about this listing; at least one.
+   * Written as "one contact, then any number more" so an empty list fails the typecheck.
+   */
+  contacts: [InvestorContact, ...InvestorContact[]]
 
   /**
    * The id of the main contact, shown first. Must match the id of one entry in contacts.

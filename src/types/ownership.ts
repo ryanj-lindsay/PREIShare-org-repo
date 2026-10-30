@@ -37,11 +37,12 @@ export interface Ownership {
   ownerName: string
 
   /**
-   * Each current owner and their share; at least one.
+   * Each current owner and their share; at least one. Written as "one owner, then any number
+   * more" so an empty list fails the typecheck.
    * Shares must add up to exactly 100 — that needs a runtime check, since the compiler
    * cannot add up values (domain brief §6).
    */
-  owners: Owner[]
+  owners: [Owner, ...Owner[]]
 
   /** Date the current owners acquired the property, as an ISO 8601 date. Optional. Example: "2019-06-14". */
   acquiredDate?: string
