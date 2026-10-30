@@ -1,11 +1,13 @@
+import type { Address } from './address'
+import type { FinancialSummary } from './financial-summary'
 import type { ListingStatus } from './listing-status'
 import type { PropertyType } from './property-type'
 
 /**
  * An investor listing: one property PREIshare shows to investors.
  *
- * Fields follow docs/domain/listing-field-inventory.md §1–3.
- * Deferred to later steps: the nested address, financials, contacts, and ownership types.
+ * Fields follow docs/domain/listing-field-inventory.md §1–5.
+ * Deferred to later steps: the contacts and ownership types.
  */
 export interface InvestorListing {
   /** Unique ID for this listing; never changes or gets reused. Example: "lst_8f3k2m". */
@@ -25,6 +27,15 @@ export interface InvestorListing {
 
   /** What kind of property this is. Example: "multi_family". */
   propertyType: PropertyType
+
+  /** Where the property is. Required: a listing without a full location is not valid. */
+  address: Address
+
+  /**
+   * Money facts that support the asking price. The inventory marks this group required;
+   * the individual metrics inside it are optional until they are known.
+   */
+  financials: FinancialSummary
 
   /** When the listing was first created, as an ISO 8601 date-time. Example: "2026-10-01T09:00:00Z". */
   createdAt: string
