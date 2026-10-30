@@ -2,7 +2,9 @@
 
 PREIshare is a real-estate intelligence web app that helps investors make smart real-estate decisions. This repo is the front end: a TanStack Start app written in strict TypeScript.
 
-Right now it holds the starter site plus the shared investor listing types from Sprint 2. Sprint 3 adds an **investor dashboard shell** — layout, navigation, and pages with mock data only. The dashboard area routes (`/dashboard`, `/dashboard/portfolio`, `/dashboard/deals`, `/dashboard/profile`) are added in a later step; see `docs/investor-dashboard-brief.md` and `docs/dashboard-ia.md` for the plan.
+It holds the shared investor listing types from Sprint 2 and, from Sprint 3, an **investor dashboard shell**: layout, navigation, and four pages — `/dashboard`, `/dashboard/portfolio`, `/dashboard/deals`, and `/dashboard/profile` — showing **sample data only**. Nothing is connected to a backend yet.
+
+**Start here:** [`docs/sprint3-handoff.md`](docs/sprint3-handoff.md) (what shipped, how to demo it, what's next) and [`docs/architecture-decisions.md`](docs/architecture-decisions.md) (why it's built this way).
 
 ## Before you start
 
@@ -29,7 +31,7 @@ This downloads every library the app needs into `node_modules/`. Run it again wh
 npm run dev
 ```
 
-Then open <http://localhost:3000>. The page reloads by itself when you save a file. Press `Ctrl+C` in the terminal to stop the server.
+Then open <http://localhost:3000>, or go straight to the dashboard at <http://localhost:3000/dashboard>. The page reloads by itself when you save a file. Press `Ctrl+C` in the terminal to stop the server.
 
 ## Other commands
 
@@ -54,6 +56,9 @@ Then open <http://localhost:3000>. The page reloads by itself when you save a fi
 | `src/routes/index.tsx` | The home page at `/` |
 | `src/routeTree.gen.ts` | Generated from `src/routes/` — never edit it by hand |
 | `src/components/` | Reusable UI pieces |
+| `src/components/layout/` | The dashboard shell: `AppShell`, `Sidebar`, `Header`, `NavItems`, `navConfig.ts` |
+| `src/components/dashboard/` | Dashboard widgets and page components |
+| `src/data/mock-dashboard.ts` | All dashboard sample data (`MOCK_*` constants) |
 | `src/types/` | Shared TypeScript types for investor listings (Sprint 2) |
 | `src/styles.css` | Tailwind entry point and the design's CSS variables |
 | `docs/` | Planning docs, decision records, and onboarding notes |
