@@ -17,8 +17,11 @@ export type ContactRole =
  * Fields follow docs/domain/listing-field-inventory.md §6.
  */
 export interface InvestorContact {
+  /** ID for this contact, unique within the listing's contacts. The listing's primaryContactId points at it. Example: "ct_jrivera". */
+  id: string
+
   /** Contact's full name. Must not be empty. Example: "Jordan Rivera". */
-  name: string
+  fullName: string
 
   /** What the contact does for this listing. Example: "listing_agent". */
   role: ContactRole
@@ -28,11 +31,4 @@ export interface InvestorContact {
 
   /** Phone number including area code. Optional: not every contact shares a phone. Example: "555-0142". */
   phone?: string
-
-  /**
-   * Whether this is the main contact shown first. The inventory marks the primary contact on
-   * the contact itself rather than with a separate id on the listing, so the flag can never
-   * point at a contact that is missing from the list.
-   */
-  isPrimary: boolean
 }

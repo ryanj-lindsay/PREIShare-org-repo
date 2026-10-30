@@ -38,12 +38,16 @@ export interface InvestorListing {
    */
   financials: FinancialSummary
 
-  /**
-   * People investors can reach about this listing; at least one.
-   * Exactly one contact has isPrimary: true — that needs a runtime check, since the
-   * compiler cannot count matching items (domain brief §6).
-   */
+  /** People investors can reach about this listing; at least one. */
   contacts: InvestorContact[]
+
+  /**
+   * The id of the main contact, shown first. Must match the id of one entry in contacts.
+   * A plain id (not a second copy of the contact) keeps one source of truth; checking that
+   * the id really exists in contacts needs a runtime check, since the compiler cannot see
+   * which ids the list holds (domain brief §6).
+   */
+  primaryContactId: string
 
   /** Who owns the property today. */
   ownership: Ownership

@@ -33,6 +33,9 @@ export interface Owner {
  * Fields follow docs/domain/listing-field-inventory.md §7.
  */
 export interface Ownership {
+  /** Owner of record shown to investors (person or entity). Must not be empty. Example: "Maple Street Holdings LLC". */
+  ownerName: string
+
   /**
    * Each current owner and their share; at least one.
    * Shares must add up to exactly 100 — that needs a runtime check, since the compiler
