@@ -64,6 +64,8 @@ draft ──► in_review ──► active ──► under_contract ──► cl
 - `under_contract → closed` — the deal completes.
 - `closed` and `withdrawn` are final; nothing moves out of them.
 
+A `closed` listing records `closedAt`, when the deal completed. No other status has a closing date.
+
 ## 5. Nested data groups
 
 A listing is one object made of smaller groups. A **nested object** is a group of related fields kept together under one name (for example, every address part lives inside `address`). A **list** is zero or more items of the same shape (for example, several contacts).

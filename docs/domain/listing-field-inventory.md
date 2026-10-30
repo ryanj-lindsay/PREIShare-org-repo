@@ -41,6 +41,7 @@ All example values are made up.
 | Field | Meaning | Shape | Required | Example |
 | --- | --- | --- | --- | --- |
 | `status` | Where the listing is in its lifecycle | fixed choice (below) | Required | `"active"` |
+| `closedAt` | When the deal completed; not before `createdAt` | text (ISO 8601 date-time) | Required when `status` is `closed`; must be left out for every other status | `"2026-12-02T17:00:00Z"` |
 
 Allowed values — exactly these, lowercase:
 
@@ -54,6 +55,10 @@ Allowed values — exactly these, lowercase:
 | `withdrawn` | Taken off the market; kept for history | No |
 
 Allowed moves between statuses are in the brief, §4.
+
+`closedAt` depends on `status`: a `closed` listing must say when it closed, and a listing that has not closed must not carry a closing date.
+
+`id` and `createdAt` never change once a listing exists, and `updatedAt` is set by the system when the listing is saved, not typed in by a person. Code treats all three as read-only.
 
 ## 3. Property type
 
