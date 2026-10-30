@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({ component: App })
 
@@ -18,6 +18,12 @@ function App() {
           shell is being built this sprint.
         </p>
         <div className="flex flex-wrap gap-3">
+          <Link
+            to="/dashboard"
+            className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[var(--lagoon-deep)] px-5 py-2.5 text-sm font-semibold text-white no-underline transition hover:-translate-y-0.5"
+          >
+            Open investor dashboard
+          </Link>
           <a
             href="/about"
             className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.14)] px-5 py-2.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.24)]"
