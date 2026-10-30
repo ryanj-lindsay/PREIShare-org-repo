@@ -10,10 +10,10 @@ The map of investor-facing pages in the dashboard shell: which URLs exist, what 
 
 | URL path | Route file | Route name | Nav label | Page title | Page purpose | Primary content |
 | --- | --- | --- | --- | --- | --- | --- |
-| `/dashboard` | `src/routes/dashboard/index.tsx` | Dashboard home | Home | Dashboard | Quick scan of portfolio value and recent activity | Stats row (`StatsCard` ×4), `PortfolioSummary`, `RecentActivity` |
-| `/dashboard/portfolio` | `src/routes/dashboard/portfolio.tsx` | Portfolio | Portfolio | Portfolio | Review every holding at a glance | `PortfolioTable` (mock holdings) |
-| `/dashboard/deals` | `src/routes/dashboard/deals.tsx` | Deals | Deals | Deals | See open deals and how close they are to closing | `DealsList` (mock deals) |
-| `/dashboard/profile` | `src/routes/dashboard/profile.tsx` | Profile | Profile | Profile | View the investor's own member details | `ProfileCard` (read-only mock member) |
+| `/dashboard` | `src/routes/dashboard/index.tsx` | Dashboard home | Home | Your dashboard | Quick scan of portfolio value and recent activity | Stats row (`StatsCard` ×4), `PortfolioSummary`, `RecentActivity` |
+| `/dashboard/portfolio` | `src/routes/dashboard/portfolio.tsx` | Portfolio | Portfolio | Your portfolio | Review every holding at a glance | `PortfolioTable` (mock holdings) |
+| `/dashboard/deals` | `src/routes/dashboard/deals.tsx` | Deals | Deals | Open deals | See open deals and how close they are to closing | `DealsList` (mock deals) |
+| `/dashboard/profile` | `src/routes/dashboard/profile.tsx` | Profile | Profile | Your profile | View the investor's own member details | `ProfileCard` (read-only mock member) |
 
 These four are the only pages under `/dashboard`. The existing site pages `/` and `/about` stay as they are and are not part of the dashboard navigation.
 
@@ -39,7 +39,7 @@ Nesting every page under one `dashboard` parent route means the shell (sidebar, 
 - **Shared chrome:** a left sidebar with the four links on desktop, a dashboard header showing the current page title, and the main content area beside or below them.
 - **One nav list:** labels and paths are defined once in `navConfig` and used everywhere navigation appears.
 - **Active state:** the link for the current URL is highlighted. Home is active only on `/dashboard` itself, not on every child page.
-- **Page title:** the header title matches the nav label's page ("Dashboard" on Home, the label otherwise), and the browser tab title follows the pattern `<Page> · PREIshare`.
+- **Page title:** the header shows the current page's title from `navConfig` ("Your dashboard", "Your portfolio", "Open deals", "Your profile") as the page heading, and the browser tab shows `<title> · PREIshare`.
 - **Labels:** short and investor-friendly: Home, Portfolio, Deals, Profile.
 - **Phone width:** the sidebar collapses behind a labeled "Menu" button in the dashboard header (with `aria-expanded`); choosing a link closes it.
 - **Mock data label:** every page with numbers or names shows a visible "Mock data" note.
