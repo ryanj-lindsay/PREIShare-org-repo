@@ -1,0 +1,70 @@
+/* Investor dashboard shell: responsive layout and accessibility basics.
+   Loaded by src/styles.css, so it applies wherever the app's global styles do. */
+
+/* Skip link: hidden until a keyboard user tabs to it. */
+.dashboard-skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 60;
+  border-radius: 0.75rem;
+  background: var(--surface-strong);
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  color: var(--sea-ink);
+}
+.dashboard-skip-link:focus {
+  top: 1rem;
+}
+
+/* Sidebar links: a roomy tap target, with the current page clearly marked. */
+.dashboard-nav .nav-link {
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+}
+.dashboard-nav .nav-link:hover {
+  background: var(--link-bg-hover);
+}
+.dashboard-nav .nav-link.is-active {
+  background: var(--chip-bg);
+  box-shadow: inset 3px 0 0 var(--lagoon-deep);
+}
+
+/* Visible keyboard focus for every link and button in the dashboard. */
+.dashboard-shell a:focus-visible,
+.dashboard-shell button:focus-visible {
+  outline: 3px solid var(--lagoon-deep);
+  outline-offset: 2px;
+  border-radius: 0.75rem;
+}
+
+/* Phone and tablet widths: the sidebar collapses behind the header's Menu button
+   and opens as a full-width panel above the page content. */
+.dashboard-sidebar {
+  display: none;
+}
+.dashboard-sidebar[data-open='true'] {
+  display: block;
+}
+.dashboard-nav ul {
+  flex-direction: column;
+}
+
+/* Desktop: the sidebar is always visible beside the content, and the Menu button is not needed. */
+@media (min-width: 1024px) {
+  .dashboard-sidebar,
+  .dashboard-sidebar[data-open='true'] {
+    display: block;
+  }
+  .dashboard-menu-button {
+    display: none;
+  }
+}
+
+/* Wide tables scroll inside their own panel instead of stretching the page. */
+.dashboard-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

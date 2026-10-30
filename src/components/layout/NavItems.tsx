@@ -8,7 +8,7 @@ import { navConfig } from './navConfig'
  */
 export default function NavItems() {
   return (
-    <ul className="m-0 flex list-none flex-wrap gap-2 p-0 lg:flex-col">
+    <ul className="m-0 flex list-none gap-1 p-0">
       {navConfig.map((item) => (
         <li key={item.path}>
           <Link
