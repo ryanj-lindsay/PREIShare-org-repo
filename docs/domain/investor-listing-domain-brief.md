@@ -75,8 +75,8 @@ A listing is one object made of smaller groups. A **nested object** is a group o
 | **Property type** | Fixed choice | What kind of property it is (single-family, condo, and so on) |
 | **Address** | Nested object | Street, unit, city, state, ZIP code, country |
 | **Financial summary** | Nested object | Currency, minimum investment, rent, taxes, HOA fees |
-| **Investor contacts** | List of nested objects | Who investors contact, their role, email, phone, and which one is primary |
-| **Ownership** | Nested object with a list of owners | Ownership structure and each owner's share |
+| **Investor contacts** | List of nested objects | Who investors contact, their role, email, and phone; the listing names one of them as primary |
+| **Ownership** | Nested object with a list of owners | The owner of record shown to investors, plus each owner's share |
 
 Field-level detail (names, shapes, required vs. optional, examples) is in `docs/domain/listing-field-inventory.md`.
 
@@ -90,13 +90,13 @@ A listing is **valid** (safe to show investors) only when every item below is tr
 4. **Address is complete.** `street`, `city`, `state`, `postalCode`, and `country` are all present and not empty; `state` is a two-letter code and `postalCode` is a 5-digit ZIP or ZIP+4.
 5. **Price is present and sensible.** `askingPrice` is a whole number of US dollars greater than 0, and `financials.currency` is `USD`. Optional money fields, when present, are 0 or more.
 6. **Minimum investment fits the price.** If `financials.minimumInvestment` is present, it is greater than 0 and not more than `askingPrice`.
-7. **Investors have someone to call.** `contacts` has at least one contact; exactly one contact has `isPrimary: true`; every contact has a name, a known role, and an email address.
+7. **Investors have someone to call.** `contacts` has at least one contact; every contact has a unique id, a full name, a known role, and an email address; `primaryContactId` matches the id of one contact.
 8. **Ownership adds up.** `ownership.owners` has at least one owner, every `sharePercent` is greater than 0, and the shares add up to exactly 100.
 9. **Investor visibility follows status.** Only `active` and `under_contract` listings are shown to investors.
 
 If any item fails, the listing must not be shown to investors.
 
-TypeScript types alone can guarantee that required fields exist, that each field has the right shape, and that status, property type, and contact role are spelled exactly right. Rules that compare or count values — price greater than 0, shares adding up to 100, exactly one primary contact, `updatedAt` not before `createdAt` — also need a small runtime check, because the compiler cannot see the actual numbers in data that arrives while the app is running.
+TypeScript types alone can guarantee that required fields exist, that each field has the right shape, and that status, property type, and contact role are spelled exactly right. Rules that compare or count values — price greater than 0, shares adding up to 100, `primaryContactId` matching a real contact, `updatedAt` not before `createdAt` — also need a small runtime check, because the compiler cannot see the actual numbers in data that arrives while the app is running.
 
 ## 7. Out of scope (for now)
 

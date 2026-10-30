@@ -104,16 +104,17 @@ Allowed values — exactly these, lowercase:
 
 ## 6. Investor contacts
 
-`contacts` is a list. It must have at least one contact, and exactly one contact must have `isPrimary: true`.
+`contacts` is a list. It must have at least one contact. Each contact has an `id` that is unique within the listing, and the listing's `primaryContactId` names the main contact by that `id`. Keeping the primary contact as one field on the listing means there is always exactly one, and its shape can never drift from the contact it points at.
 
 | Field | Meaning | Shape | Required | Example |
 | --- | --- | --- | --- | --- |
 | `contacts` | People investors can reach about this listing | list of nested objects | Required (1 or more) | — |
-| `contacts[].name` | Contact's full name | text (not empty) | Required | `"Jordan Rivera"` |
+| `contacts[].id` | ID for this contact; unique within the listing's contacts | text (not empty) | Required | `"ct_jrivera"` |
+| `contacts[].fullName` | Contact's full name | text (not empty) | Required | `"Jordan Rivera"` |
 | `contacts[].role` | What the contact does for this listing | fixed choice (below) | Required | `"listing_agent"` |
 | `contacts[].email` | Email address investors can write to | text (email format) | Required | `"jordan.rivera@example.com"` |
 | `contacts[].phone` | Phone number including area code | text | Optional | `"555-0142"` |
-| `contacts[].isPrimary` | Whether this is the main contact shown first | yes/no | Required | `true` |
+| `primaryContactId` | The `id` of the main contact shown first; must match one entry in `contacts` | text | Required | `"ct_jrivera"` |
 
 `contacts[].role` allowed values:
 
@@ -125,11 +126,12 @@ Allowed values — exactly these, lowercase:
 
 ## 7. Ownership
 
-`ownership` is a nested object holding a list of owners. Shares must add up to exactly 100.
+`ownership` is a nested object: the owner name shown on the listing, plus the list of owners behind it. Shares must add up to exactly 100.
 
 | Field | Meaning | Shape | Required | Example |
 | --- | --- | --- | --- | --- |
 | `ownership` | Who owns the property today | nested object | Required | — |
+| `ownership.ownerName` | Owner of record shown to investors (person or entity) | text (not empty) | Required | `"Maple Street Holdings LLC"` |
 | `ownership.owners` | Each current owner and their share | list of nested objects | Required (1 or more) | — |
 | `ownership.owners[].name` | Owner's legal name (person or entity) | text (not empty) | Required | `"Maple Street Holdings LLC"` |
 | `ownership.owners[].ownerType` | Kind of owner | fixed choice (below) | Required | `"llc"` |
@@ -176,20 +178,22 @@ A valid `active` listing using every group above (all data made up):
   },
   "contacts": [
     {
-      "name": "Jordan Rivera",
+      "id": "ct_jrivera",
+      "fullName": "Jordan Rivera",
       "role": "listing_agent",
       "email": "jordan.rivera@example.com",
-      "phone": "555-0142",
-      "isPrimary": true
+      "phone": "555-0142"
     },
     {
-      "name": "Casey Morgan",
+      "id": "ct_cmorgan",
+      "fullName": "Casey Morgan",
       "role": "property_manager",
-      "email": "casey.morgan@example.com",
-      "isPrimary": false
+      "email": "casey.morgan@example.com"
     }
   ],
+  "primaryContactId": "ct_jrivera",
   "ownership": {
+    "ownerName": "Maple Street Holdings LLC",
     "owners": [
       { "name": "Maple Street Holdings LLC", "ownerType": "llc", "sharePercent": 100 }
     ],
@@ -207,5 +211,5 @@ A valid `active` listing using every group above (all data made up):
 | Missing `askingPrice` | Asking price is required |
 | `"address": { "street": "1420 Maple Street" }` | City, state, postal code, and country are required |
 | `"postalCode": 2134` | Postal code is text, so leading zeros are kept (`"02134"`) |
-| Two contacts with `isPrimary: true` | Exactly one contact must be primary |
+| `"primaryContactId": "ct_unknown"` | The primary contact must be one of the listing's contacts |
 | Owners with shares 60 and 30 | Shares must add up to exactly 100 |
